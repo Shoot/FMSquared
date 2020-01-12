@@ -21,16 +21,16 @@ class Collage:
 
 		return resp
 
-	def get_top_albums(self, user, period='overall'):
+	def get_top_albums(self, user, period='overall', limit=50):
 		valid_time_periods = ['overall', '7day', '1month', '3month', '6month', '12month']
 		if not period in valid_time_periods:
 			raise Exception('Invalid time period (' + ', '.join(valid_time_periods) + ')')
-
+		
 		return self._request({
 			'method': 'user.gettopalbums',
 			'user': user,
 			'period': period,
-			'limit': 50
+			'limit': limit
 		}).json()['topalbums']['album']
 
 	def build_collage_data(self, width, height, albums):

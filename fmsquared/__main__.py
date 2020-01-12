@@ -23,7 +23,7 @@ def main():
 
 	# Start making the collage
 	client = Collage(args.token)
-	albums = client.get_top_albums(args.user, period=args.period)
+	albums = client.get_top_albums(args.user, period=args.period, limit=args.width*args.height)
 	data = client.build_collage_data(args.width, args.height, albums)
 	image = client.generate_image(data)
 
