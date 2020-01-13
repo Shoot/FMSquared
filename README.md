@@ -45,4 +45,4 @@ fmsquared --help
 After running the first command successfully, a file called `final.png` will be saved to the directory you ran the program from.
 
 ### License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Shoot/FMSquared/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Shoot/FMSquared/blob/master/LICENSE) file for details.
