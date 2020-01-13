@@ -20,7 +20,7 @@ Or, clone the latest version to a folder and install it using `setup.py`, like b
 py setup.py install
 ```
 
-### Usage
+## Usage
 ```
 fmsquared <token> <user>
 ```
@@ -44,5 +44,5 @@ fmsquared --help
 ```
 After running the first command successfully, a file called `final.png` will be saved to the directory you ran the program from.
 
-### License
+## License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/Shoot/FMSquared/blob/master/LICENSE) file for details.
