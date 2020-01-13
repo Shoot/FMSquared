@@ -9,7 +9,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
 	name='fmsquared',
-	version='1.1.0',
+	version='1.2.0',
 	description='A tool to create collage images using data from Last FM',
 	author='Shoot',
 	long_description=long_description,
