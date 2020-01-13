@@ -1,4 +1,5 @@
 import io
+import math
 import numpy
 import requests
 import binascii
@@ -7,6 +8,8 @@ from PIL import Image, ImageDraw, ImageFont
 import scipy
 import scipy.misc
 import scipy.cluster
+
+from fmsquared.exceptions import TooFewAlbums
 
 class Collage:
 	def __init__(self, apikey):
@@ -21,24 +24,36 @@ class Collage:
 
 		return resp
 
-	def get_top_albums(self, user, period='overall', limit=50):
+	def get_top_albums(self, user, period='overall', limit=50, no_empty=False):
 		valid_time_periods = ['overall', '7day', '1month', '3month', '6month', '12month']
 		if not period in valid_time_periods:
-			raise Exception('Invalid time period (' + ', '.join(valid_time_periods) + ')')
-		
-		return self._request({
-			'method': 'user.gettopalbums',
-			'user': user,
-			'period': period,
-			'limit': limit
-		}).json()['topalbums']['album']
+			raise ValueError('Invalid time period (' + ', '.join(valid_time_periods) + ')')
+
+		albums = []
+
+		# Limit is 1000 albums per page
+		for page in range(math.ceil(limit / 1000)):
+			data = self._request({
+				'method': 'user.gettopalbums',
+				'user': user,
+				'period': period,
+				'limit': limit
+			}).json()['topalbums']['album']
+
+			albums += data
+
+		if no_empty:
+			for album in albums[:]:
+				for image in album['image']:
+					if not image['#text']:
+						albums.remove(album)
+						break
+
+		return albums
 
 	def build_collage_data(self, width, height, albums):
-		if (width * height) > 50:
-			raise Exception('Total amount of albums must be less than 50')
-
 		if (width * height) > len(albums):
-			raise Exception('Not enough albums available')
+			raise TooFewAlbums('Not enough albums available')
 
 		rows = []
 		count = 0
@@ -67,7 +82,7 @@ class Collage:
 
 		return image
 
-	def generate_image(self, data):
+	def generate_image(self, data, artist_only=False, listen_count=False):
 		vertical_albums = []
 		font = ImageFont.truetype('arial.ttf', 15)
 
@@ -77,7 +92,7 @@ class Collage:
 			for album in vertical_album:
 				# Download the album art
 				album_art = self.album_art(album).resize((200, 200))
-
+				
 				# Getting dominant color from the album art
 				# https://stackoverflow.com/questions/3241929/python-find-dominant-most-common-color-in-an-image
 				ar = numpy.asarray(album_art)
@@ -102,7 +117,7 @@ class Collage:
 
 				# Draw text onto the album art
 				draw = ImageDraw.Draw(album_art)
-				draw.text((0, 0), album['artist']['name'] + '\n' + album['name'], font_color, font=font)
+				draw.text((0, 0), album['artist']['name'] + ('\n' + album['name'] if not artist_only else '') + ('\n' + album['playcount'] + ' plays' if listen_count else ''), font_color, font=font)
 
 				# Resize the image and add it to the array
 				horizontal_group.append(album_art)

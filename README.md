@@ -22,12 +22,24 @@ py setup.py install
 
 ### Usage
 ```
-fmsquared <token> <user> -width <width> -height <height> -period <time period to use>
+fmsquared <token> <user>
 ```
-More information on each of these is available by using the help command below.
+This is the base command you will have to use any time you run the program. Additional options are available below.
+| Option | Required | Default | Help |
+|--------|----------|---------|------|
+| token | ✓ | None | Your Last.fm API token |
+| user | ✓ | None | The username of the Last.fm profile to create the collage from |
+| -width | ✗ | 3 | The amount of albums to display horizontally |
+| -height | ✗ | 3 | The amount of albums to display vertically |
+| -period | ✗ | overall | The time period to fetch data from |
+| --no-empty | ✗ | False | Display only albums with album art |
+| --artists-only | ✗ | False | Display only artist names in the text |
+| --listen-count | ✗ | False | Display the amount of times the album has been listened to in the text |
+You can also see these commands and more information on them by typing the following command.
 ```
 fmsquared --help
 ```
+After running the first command successfully, a file called `final.png` will be saved to the directory you ran the program from.
 
 ### License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/Shoot/FMSquared/LICENSE) file for details.
