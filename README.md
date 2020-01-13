@@ -36,6 +36,7 @@ This is the base command you will have to use any time you run the program. Addi
 | --no-empty | ✗ | False | Display only albums with album art |
 | --artists-only | ✗ | False | Display only artist names in the text |
 | --listen-count | ✗ | False | Display the amount of times the album has been listened to in the text |
+| --verbose | ✗ | False | Increase the verbosity of outputs, including 'DEBUG' logging |
 
 You can also see these commands and more information on them by typing the following command.
 ```
