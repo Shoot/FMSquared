@@ -1,4 +1,3 @@
-import math
 import logging
 import argparse
 import platform

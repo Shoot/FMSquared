@@ -25,6 +25,7 @@ py setup.py install
 fmsquared <token> <user>
 ```
 This is the base command you will have to use any time you run the program. Additional options are available below.
+
 | Option | Required | Default | Help |
 |--------|----------|---------|------|
 | token | ✓ | None | Your Last.fm API token |
@@ -35,6 +36,7 @@ This is the base command you will have to use any time you run the program. Addi
 | --no-empty | ✗ | False | Display only albums with album art |
 | --artists-only | ✗ | False | Display only artist names in the text |
 | --listen-count | ✗ | False | Display the amount of times the album has been listened to in the text |
+
 You can also see these commands and more information on them by typing the following command.
 ```
 fmsquared --help
